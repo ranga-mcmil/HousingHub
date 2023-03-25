@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!--/ Intro Single star /-->
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">{{ad.title}}</h1>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                {% if ad.user == user %}
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a class="second-nav-link" href="{% url 'ads:orders' ad.id %}">Orders</a>
+                            </li>
+
+                            <li class="breadcrumb-item">
+                                <a class="second-nav-link" href="{% url 'ads:edit' ad.id %}">Edit</a>
+                            </li>
+
+                            <li class="breadcrumb-item">
+                                <a class="second-nav-link delete" href="{% url 'ads:delete' ad.id %}">Delete</a>
+                            </li>
+                            
+                        </ol>
+                    </nav>
+
+                {% else %}
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a class="second-nav-link" href="{% url 'ads:order_item' ad.id %}">Order Item</a>
+                            </li>
+                            
+                        </ol>
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ News Single Star /-->
+<section class="news-single nav-arrow-b">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="news-img-box">
+                    <img src="{{ad.image.url}}" alt="" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                <div class="post-information">
+                    <ul class="list-inline text-center color-a">
+                        <li class="list-inline-item mr-2">
+                            <strong>By: </strong>
+                            <span class="color-text-a">{{ad.user.get_full_name}}</span>
+                        </li>
+                        <li class="list-inline-item mr-2">
+                            <strong>Category: </strong>
+                            <span class="color-text-a">{{ad.category}}</span>
+                        </li>
+                        <li class="list-inline-item">
+                            <strong>Price: </strong>
+                            <span class="color-text-a">${{ad.price}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="post-content color-text-a">
+
+                    <p>
+                       {{ad.description}}
+                    </p>
+
+                </div>
+                <div class="post-footer">
+                    <div class="post-share">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+                <div class="title-box-d">
+                    <h3 class="title-d">Comments ({{comments.count}})</h3>
+                </div>
+                <div class="box-comments">
+                    <ul class="list-comments">
+                        {% for comment in comments %}
+
+                            <li>
+                                <div class="comment-avatar">
+                                    {% if comment.user %}
+                                        <img src="{{comment.user.pic.url}}" alt="">
+                                    {% endif %}
+        
+                                </div>
+                                <div class="comment-details">
+                                    <h4 class="comment-author">{{comment.user_name}}</h4>
+                                    <span>{{comment.date_created}}</span>
+                                    <p class="comment-description">
+                                        {{comment.message}}
+                                    </p>
+                                </div>
+                            </li>
+
+                        {% endfor %}
+
+                        <div class="post-footer">
+                            <div class="post-share">
+        
+                            </div>
+                        </div>
+                        
+                        
+                    </ul>
+                </div>
+                <div class="form-comments">
+                    <div class="title-box-d">
+                        <h3 class="title-d"> Leave a Reply</h3>
+                    </div>
+                    <form class="form-a" method="post">
+                        <div class="row">
+                            {% if not user.is_authenticated %}
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="inputName">Enter name</label>
+                                        {{form.user_name}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="inputEmail1">Enter email</label>
+                                        {{form.user_name_email}}
+                                    </div>
+                                </div>
+                            
+                            {% endif %}
+                            
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label for="textMessage">Enter message</label>
+                                    {{form.message}}
+                                </div>
+                            </div>
+                            {% csrf_token %}
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-a">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ News Single End /-->
+
+
+{% endblock %}

@@ -1,0 +1,114 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!--/ Intro Single star /-->
+<section class="intro-single">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-8">
+        <div class="title-single-box">
+          <h1 class="title-single">Sign up</h1>
+          <span class="color-text-a">Fill in the form below to sign up:</span>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-4">
+        <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              Already have an account?
+              <a style="color: #2eca6a;" href="{% url 'accounts:login' %}">Sign In</a>
+            </li>
+            
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ News Single Star /-->
+<section class="news-single nav-arrow-b">
+  <div class="container">
+        
+      <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+        
+        <div class="form-comments">
+          
+          <form class="form-a" enctype="multipart/form-data" method="post">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <label for="inputName">First Name</label>
+                  {{form.first_name}}
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Last Name</label>
+                  {{form.last_name}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Email</label>
+                  {{form.email}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Contact Number</label>
+                  {{form.contact_number}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">User Type</label>
+                  {{form.user_type}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Profile Picture</label>
+                  {{form.pic}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Password</label>
+                  {{form.password}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Confirm Password</label>
+                  {{form.password2}}
+                </div>
+              </div>
+
+
+      
+              {% csrf_token %}
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-a">Sign up</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ News Single End /-->
+
+
+{% endblock %}

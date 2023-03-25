@@ -1,0 +1,56 @@
+{% load thumbnail %}
+<section class="property-grid grid">
+    <div class="container">
+        <div class="row">
+
+            {% for house in houses|slice:":3" %}
+                <div class="col-md-4">
+                    <div class="card-box-a card-shadow">
+                        <div class="img-box-a">
+                            <img src="{{ house.image1.url }}" alt="" class="img-a img-fluid">
+
+                        </div>
+                        <div class="card-overlay">
+                            <div class="card-overlay-a-content">
+                                <div class="card-header-a">
+                                    <h2 class="card-title-a">
+                                        <a href="{% url 'houses:house' house.id %}">{{house.address}}
+                                            <br /> {{house.location}}</a>
+                                    </h2>
+                                </div>
+                                <div class="card-body-a">
+                                    <div class="price-box d-flex">
+                                        <span class="price-a">rent | $ {{house.price}}</span>
+                                    </div>
+                                    <a href="{% url 'houses:house' house.id %}" class="link-a">Click here to view
+                                        <span class="ion-ios-arrow-forward"></span>
+                                    </a>
+                                </div>
+                                <div class="card-footer-a">
+                                    <ul class="card-info d-flex justify-content-around">
+                                        
+                                        <li>
+                                            <h4 class="card-info-title">Beds</h4>
+                                            <span>{{house.beds_per_room}}</span>
+                                        </li>
+                                        <li>
+                                            <h4 class="card-info-title">Baths</h4>
+                                            <span>{{house.baths_rooms}}</span>
+                                        </li>
+                                        <li>
+                                            <h4 class="card-info-title">Spaces Available</h4>
+                                            <span>{{house.get_slots_available}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <h4>No houses available</h4>
+
+            {% endfor %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">{{advertiser.get_full_name}}</h1>
+                    <span class="color-text-a">{{ advertiser.user_type }}</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                {% if advertiser == user %}
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a class="second-nav-link" href="{% url 'accounts:edit' %}">Edit Profile</a>
+                            </li>
+
+                            
+                            
+                        </ol>
+                    </nav>
+
+                {% else %}
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'houses:home' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'accounts:accounts' %}">Advertisers</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                {{advertiser.get_full_name}}
+                            </li>
+                        </ol>
+                    </nav>
+                    
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ Agent Single Star /-->
+<section class="agent-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="agent-avatar-box">
+                            <img src="{{advertiser.pic.url}}" alt="" class="agent-avatar img-fluid">
+                        </div>
+                    </div>
+                    <div class="col-md-5 section-md-t3">
+                        <div class="agent-info-box">
+                            <div class="agent-title">
+                                <div class="title-box-d">
+                                    <h3 class="title-d">{{advertiser.first_name}}
+                                        <br> {{advertiser.last_name}}
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="agent-content mb-3">
+                                <p class="content-d color-text-a">
+                                    
+                                    {{advertiser.bio}}
+                                </p>
+                                <div class="info-agents color-a">
+                                    <p>
+                                        <strong>Phone: </strong>
+                                        <span class="color-text-a"> {{advertiser.contact_number}} </span>
+                                    </p>
+                                    <p>
+                                        <strong>Mobile: </strong>
+                                        <span class="color-text-a"> {{advertiser.contact_number}}</span>
+                                    </p>
+                                    <p>
+                                        <strong>Email: </strong>
+                                        <span class="color-text-a"> {{advertiser.email}}</span>
+                                    </p>
+                                    
+                                </div>
+                            </div>
+                            <div class="socials-footer">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="#" class="link-one">
+                                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="link-one">
+                                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="link-one">
+                                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="link-one">
+                                            <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="link-one">
+                                            <i class="fa fa-dribbble" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 section-t8">
+                <div class="title-box-d row">
+                    {% if ads %}
+                        <h3 class="title-d" style="font-size: 20px;">My Ads ({{advertiser.ads.count}})</h3>
+                        <h3 class="title-d ml-5" style="font-size: 20px;"><a href="{% url 'accounts:account' advertiser.id%}">My Properties ({{advertiser.houses.count}})</a></h3>
+                    {% else %}
+                        <h3 class="title-d aaa" style="font-size: 20px;">My Properties ({{advertiser.houses.count}})</h3>
+                        <h3 class="title-d ml-5" style="font-size: 20px;"><a href="{% url 'accounts:account' advertiser.id%}?ads=ads">My Ads ({{advertiser.ads.count}})</a></h3>
+                    {% endif %}
+                    
+                </div>
+            </div>
+
+            {% if ads %}
+
+                <div class="row">
+
+                    {% include 'houses/reusables/ads_section.html' with ads=advertiser.ads.all %}
+                </div>
+
+            {% else %}
+
+                <div class="row property-grid grid">
+                    <div class="col-sm-12">
+                        <div class="grid-option">
+                            <form>
+                                <select class="custom-select">
+                                    <option selected>All</option>
+                                    
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    
+                    {% include 'houses/reusables/houses_section.html' with houses=advertiser.houses.all %}
+                    
+                    
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!--/ Agent Single End /-->
+{% endblock %}

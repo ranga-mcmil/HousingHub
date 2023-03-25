@@ -1,0 +1,170 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!--/ Intro Single star /-->
+<section class="intro-single">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-8">
+        <div class="title-single-box">
+          <h1 class="title-single">{{title}} house</h1>
+          <span class="color-text-a">Fill in the form below:</span>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-4">
+        <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'houses:home' %}">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="{% url 'houses:houses' %}">Houses</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{title}}
+            </li>
+            
+        </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ News Single Star /-->
+<section class="news-single nav-arrow-b">
+  <div class="container">
+
+    {% if form.errors %}
+      <p>
+        {{ form.errors }}
+      </p>
+      {% else %}
+      {% endif %}
+    
+        
+      <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+        
+        <div class="form-comments">
+          
+          <form class="form-a" method="post" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <label for="inputName">Address</label>
+                  {{form.address}}
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">City</label>
+                  {{form.location}}
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Rent</label>
+                  {{form.price}}
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Booking Fee</label>
+                  {{form.booking_fee}}
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Status</label>
+                  {{form.status}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Beds Per Room</label>
+                  {{form.beds_per_room}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Bathrooms</label>
+                  {{form.baths_rooms}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Girls remaining slots</label>
+                  {{form.girls_remaining_slots}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Boys remaining slots</label>
+                  {{form.boys_remaining_slots}}
+                </div>
+              </div>
+
+              
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Main Image</label>
+                  {{form.image1}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Image 2</label>
+                  {{form.image2}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Image 3</label>
+                  {{form.image3}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Description</label>
+                  {{form.description}}
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Amenities</label>
+                  <div class="row" style="margin-left: 0;">
+                    {{form.amenities}}
+                  </div>
+                </div>
+              </div>
+
+
+      
+              {% csrf_token %}
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-a">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ News Single End /-->
+
+
+{% endblock %}

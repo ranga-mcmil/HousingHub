@@ -1,0 +1,103 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!--/ Intro Single star /-->
+<section class="intro-single">
+  <div class="container">
+    <div class="row">
+      
+      <div class="col-md-12 col-lg-8">
+        <div class="title-single-box">
+          <h1 class="title-single">{{title}} ad</h1>
+          <span class="color-text-a">Pay using Ecocash to get your ad published</span>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-4">
+        <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'houses:home' %}">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="{% url 'ads:ads' %}">Ads</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{title}}
+            </li>
+            
+        </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ News Single Star /-->
+<section class="news-single nav-arrow-b">
+  <div class="container">
+        
+      <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+        
+        <div class="form-comments">
+          
+          <form class="form-a" method="post" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <label for="inputName">Amount</label>
+                  <input type="text" class="form-control" disabled value="1.00"
+                    style="background-color: white;">
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <label for="inputName">Ecocash phone number</label>
+                  {{ecocash_form.phone_number}}
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputName">Ad Title</label>
+                  {{form.title}}
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Image</label>
+                  {{form.image}}
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Category</label>
+                  {{form.category}}
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <label for="inputEmail1">Description</label>
+                  {{form.description}}
+                </div>
+              </div>
+
+
+      
+              {% csrf_token %}
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-a">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ News Single End /-->
+
+
+{% endblock %}

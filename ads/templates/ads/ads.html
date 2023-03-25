@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!--/ Intro Single star /-->
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">Ads</h1>
+                    <span class="color-text-a">Advertisements</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                {% if user.is_authenticated and user.user_type == "ADVERTISER" %}
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a class="second-nav-link" href="{% url 'ads:new' %}" >New ad</a>
+                            </li>
+                            
+                        </ol>
+                    </nav>
+
+                {% else %}
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'houses:home' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Ads 
+                            </li>
+                        </ol>
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ News Grid Star /-->
+<section class="news-grid grid">
+    <div class="container">
+        <div class="row">
+
+            {% for ad in ads %}
+                <div class="col-md-4">
+                    <div class="card-box-b card-shadow news-box">
+                        <div class="img-box-b">
+                            <img src="{{ad.image.url}}" alt="" class="img-b img-fluid">
+                        </div>
+                        <div class="card-overlay">
+                            <div class="card-header-b">
+                                <div class="card-category-b">
+                                    <a href="" class="category-b">{{ad.category}}</a>
+                                </div>
+                                <div class="card-title-b">
+                                    <h2 class="title-2">
+                                        <a href="{% url 'ads:ad' ad.id %}">{{ad.title}}</a>
+                                    </h2>
+                                </div>
+                                <div class="card-date">
+                                    <span class="date-b">{{ad.date_created|date:"M d, Y"}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <h4>No ads available</h4>
+
+            {% endfor %}
+        </div>
+
+        {% include "pagination.html" with items=ads %}
+        
+    </div>
+</section>
+<!--/ News Grid End /-->
+
+{% endblock %}

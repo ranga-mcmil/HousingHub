@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">Our Amazing Properties</h1>
+                    <span class="color-text-a">Grid Properties</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                {% if user.is_authenticated and user.user_type == "ADVERTISER" %}
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a class="second-nav-link" href="{% url 'houses:new' %}" >New property</a>
+                            </li>
+                            
+                        </ol>
+                    </nav>
+
+                {% else %}
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Properties 
+                            </li>
+                        </ol>
+                    </nav>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ Intro Single End /-->
+
+<!--/ Property Grid Star /-->
+<section class="property-grid grid">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="grid-option">
+                    <form>
+                        <select class="custom-select">
+                            <option selected>All</option>
+                            <option value="1">New to Old</option>
+                            <option value="2">For Rent</option>
+                            <option value="3">For Sale</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+            {% for house in houses %}
+
+                <div class="col-md-4">
+                    <div class="card-box-a card-shadow">
+                        <div class="img-box-a">
+                            <!-- <img src="{% thumbnail house.image1 0x467 %}" alt="" class="img-a img-fluid"> -->
+                            <img src="{{ house.image1.url }}" alt="" class="img-a img-fluid">
+
+                        </div>
+                        <div class="card-overlay">
+                            <div class="card-overlay-a-content">
+                                <div class="card-header-a">
+                                    <h2 class="card-title-a">
+                                        <a href="{% url 'houses:house' house.id %}">{{house.address}}
+                                            <br /> {{house.location}}</a>
+                                    </h2>
+                                </div>
+                                <div class="card-body-a">
+                                    <div class="price-box d-flex">
+                                        <span class="price-a">rent | $ {{house.price}}</span>
+                                    </div>
+                                    <a href="{% url 'houses:house' house.id %}" class="link-a">Click here to view
+                                        <span class="ion-ios-arrow-forward"></span>
+                                    </a>
+                                </div>
+                                <div class="card-footer-a">
+                                    <ul class="card-info d-flex justify-content-around">
+                                        
+                                        <li>
+                                            <h4 class="card-info-title">Beds</h4>
+                                            <span>{{house.beds_per_room}}</span>
+                                        </li>
+                                        <li>
+                                            <h4 class="card-info-title">Baths</h4>
+                                            <span>{{house.baths_rooms}}</span>
+                                        </li>
+                                        <li>
+                                            <h4 class="card-info-title">Spaces Available</h4>
+                                            <span>{{house.get_slots_available}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <h4>No houses available</h4>
+
+            {% endfor %}
+
+
+        </div>
+
+    <!-- paste here -->
+
+    {% include "pagination.html" with items=houses %}
+    </div>
+    
+</section>
+{% endblock %}
